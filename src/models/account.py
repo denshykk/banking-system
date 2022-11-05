@@ -4,7 +4,7 @@ from src.utils.exception_wrapper import handle_error_format
 
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    balance = db.Column(db.DECIMAL, nullable=False)
+    balance = db.Column(db.Numeric(15, 2), nullable=False)
     userId = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
 
     def to_json(self):
@@ -19,12 +19,12 @@ class Account(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_account_by_id(cls, note_id):
-        return cls.query.filter_by(id=note_id).first()
+    def get_by_id(cls, account_id):
+        return cls.query.filter_by(id=account_id).first()
 
     @classmethod
-    def delete_account_by_id(cls, account_id):
-        account = Account.get_note_by_id(account_id)
+    def delete_by_id(cls, account_id):
+        account = Account.get_by_id(account_id)
 
         if not account:
             return handle_error_format('Account with such id does not exist.',
@@ -32,9 +32,7 @@ class Account(db.Model):
 
         account_json = Account.to_json(account)
 
-        for user in account.users:
-            user.notes.remove(account)
-
         cls.query.filter_by(id=account_id).delete()
         db.session.commit()
+
         return account_json

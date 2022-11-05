@@ -1,17 +1,17 @@
 from src.app import db
-from src.models.account import Account
+from src.models import Account
 from passlib.hash import pbkdf2_sha256 as sha256
 from src.utils.exception_wrapper import handle_error_format
 
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(50), unique=True, nullable=False)
-    password_hash = db.Column(db.String(50), nullable=False)
-    accounts = db.relationship('Account', backref='user', lazy=True)
+    username = db.Column(db.String(255), unique=True, nullable=False)
+    first_name = db.Column(db.String(255), nullable=False)
+    last_name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    accounts = db.relationship('Account', backref='user', lazy='dynamic')
 
     def to_json(self):
         return {
@@ -49,7 +49,7 @@ class User(db.Model):
             user = User.get_by_id(userId)
 
             for account in user.accounts:
-                Account.delete_account_by_id(account.id)
+                Account.delete_by_id(account.id)
 
             user_json = User.to_json(user)
             User.query.filter_by(id=userId).delete()
