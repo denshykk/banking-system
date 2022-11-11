@@ -1,13 +1,14 @@
-from src.app import app
+from src.app import app, auth
 from decimal import Decimal
 from flask_restful import reqparse
-from src.models import User
+from src.models import User, Role
 from src.models import Account
 from src.utils.exception_wrapper import handle_error_format
 from src.utils.exception_wrapper import handle_server_exception
 
 
 @app.route('/account/<userId>', methods=['POST'])
+@auth.login_required(role='admin')
 @handle_server_exception
 def create_account(userId: int):
     user = User.get_by_id(userId)
@@ -26,7 +27,29 @@ def create_account(userId: int):
     return Account.to_json(account)
 
 
+@app.route('/account', methods=['POST'])
+@auth.login_required(role=['user', 'admin'])
+@handle_server_exception
+def create_account_for_authorized_user():
+    username = auth.current_user()
+    user = User.get_by_username(username)
+
+    if not user:
+        return handle_error_format('User with such id does not exist.',
+                                   'Field \'userId\' in path parameters.'), 404
+
+    account = Account(
+        balance=0,
+        userId=user.id
+    )
+
+    account.save_to_db()
+
+    return Account.to_json(account)
+
+
 @app.route('/account/<accountId>', methods=['GET'])
+@auth.login_required(role='admin')
 @handle_server_exception
 def get_account_by_id(accountId: int):
     account = Account.get_by_id(accountId)
@@ -39,6 +62,7 @@ def get_account_by_id(accountId: int):
 
 
 @app.route('/user/account/<userId>', methods=['GET'])
+@auth.login_required(role='admin')
 @handle_server_exception
 def get_user_accounts(userId: int):
     user = User.get_by_id(userId)
@@ -50,7 +74,22 @@ def get_user_accounts(userId: int):
     return [Account.to_json(account) for account in user.accounts]
 
 
+@app.route('/user/account', methods=['GET'])
+@auth.login_required(role=['user', 'admin'])
+@handle_server_exception
+def get_authorized_user_accounts():
+    username = auth.current_user()
+    user = User.get_by_id(username)
+
+    if not user:
+        return handle_error_format('User with such id does not exist.',
+                                   'Field \'userId\' in path parameters.'), 404
+
+    return [Account.to_json(account) for account in user.accounts]
+
+
 @app.route('/account/<accountId>', methods=['PUT'])
+@auth.login_required(role='admin')
 @handle_server_exception
 def update_account_by_id(accountId: int):
     parser = reqparse.RequestParser()
@@ -77,12 +116,26 @@ def update_account_by_id(accountId: int):
 
 
 @app.route('/account/<accountId>', methods=['DELETE'])
+@auth.login_required(role=['user', 'admin'])
 @handle_server_exception
 def delete_account_by_id(accountId: int):
+    username = auth.current_user()
+    user = User.get_by_username(username)
+
+    admin = Role.get_by_name('admin')
+    if admin in user.roles:
+        return Account.delete_by_id(accountId)
+
+    account_to_delete = Account.get_by_id(accountId)
+    if account_to_delete not in user.accounts:
+        return handle_error_format('You do not have account with that id',
+                                   'Field \'accountId\' in path parameters'), 400
+
     return Account.delete_by_id(accountId)
 
 
 @app.route('/account/<fromAccountId>/transfer-to/<toAccountId>', methods=['POST'])
+@auth.login_required(role=['user', 'admin'])
 @handle_server_exception
 def transfer_to_account(fromAccountId: int, toAccountId: int):
     parser = reqparse.RequestParser()
@@ -101,6 +154,15 @@ def transfer_to_account(fromAccountId: int, toAccountId: int):
     if not from_account:
         return handle_error_format('Account with such id does not exist.',
                                    'Field \'accountId\' in path parameters.'), 404
+
+    username = auth.current_user()
+    user = User.get_by_username(username)
+    admin = Role.get_by_name('admin')
+
+    if from_account not in user.accounts:
+        if admin not in user.roles:
+            return handle_error_format('You do not have access to this account.',
+                                   'Field \'fromAccountId\' in path parameters.'), 400
 
     to_account = Account.get_by_id(toAccountId)
 
