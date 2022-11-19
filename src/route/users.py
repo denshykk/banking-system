@@ -127,8 +127,8 @@ def update_authorized_user():
         return handle_error_format('User with such username already exists.',
                                    'Field \'username\' in the request body.'), 400
 
-    username = auth.current_user()
-    user = User.get_by_username(username)
+    current_username = auth.current_user()
+    user = User.get_by_username(current_username)
 
     if not user:
         return handle_error_format('User with such id does not exist.',

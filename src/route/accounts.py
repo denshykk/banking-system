@@ -79,7 +79,7 @@ def get_user_accounts(userId: int):
 @handle_server_exception
 def get_authorized_user_accounts():
     username = auth.current_user()
-    user = User.get_by_id(username)
+    user = User.get_by_username(username)
 
     if not user:
         return handle_error_format('User with such id does not exist.',
@@ -162,7 +162,7 @@ def transfer_to_account(fromAccountId: int, toAccountId: int):
     if from_account not in user.accounts:
         if admin not in user.roles:
             return handle_error_format('You do not have access to this account.',
-                                   'Field \'fromAccountId\' in path parameters.'), 400
+                                       'Field \'fromAccountId\' in path parameters.'), 400
 
     to_account = Account.get_by_id(toAccountId)
 
