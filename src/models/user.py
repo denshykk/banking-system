@@ -49,25 +49,21 @@ class User(db.Model):
 
     @classmethod
     def get_by_username_or_id(cls, identifier):
+        return User.query.filter((User.id == identifier) | (User.username == identifier)).first()
+
+    @classmethod
+    def get_by_username_or_email(cls, identifier):
         return User.query.filter((User.email == identifier) | (User.username == identifier)).first()
 
     @classmethod
     def delete_by_identifier(cls, identifier):
-        try:
-            user = User.get_by_username_or_id(identifier)
+        user = User.get_by_username_or_id(identifier)
 
-            if not user:
-                return handle_error_format('User with such id/username does not exist.',
-                                           'Field \'userId/username\' in path parameters.'), 404
-
-            if not user.accounts:
-                for account in user.accounts:
-                    Account.delete_by_id(account.id)
-
-            user_json = User.to_json(user)
-            User.query.filter_by(id=user.id).delete()
-            db.session.commit()
-            return user_json
-        except AttributeError:
+        if not user:
             return handle_error_format('User with such id/username does not exist.',
                                        'Field \'userId/username\' in path parameters.'), 404
+
+        user_json = User.to_json(user)
+        User.query.filter_by(id=user.id).delete()
+        db.session.commit()
+        return user_json
