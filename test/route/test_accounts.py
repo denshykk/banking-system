@@ -58,7 +58,7 @@ class TestAccounts(TestCase):
         result = undecorated_create_account(1)
 
         self.assertEqual(({'errors': [{'message': 'User with such id does not exist.',
-                                       'source': "Field 'userId' in path parameters."}],
+                                       'source': 'Field \'userId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.Account.save_to_db')
@@ -84,7 +84,7 @@ class TestAccounts(TestCase):
         result = undecorated_create_account_for_authorized_user()
 
         self.assertEqual(({'errors': [{'message': 'User with such id does not exist.',
-                                       'source': "Field 'userId' in path parameters."}],
+                                       'source': 'Field \'userId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.Account.save_to_db')
@@ -106,7 +106,7 @@ class TestAccounts(TestCase):
         result = undecorated_get_account_by_id(1)
 
         self.assertEqual(({'errors': [{'message': 'Account with such id does not exist.',
-                                       'source': "Field 'accountId' in path parameters."}],
+                                       'source': 'Field \'accountId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.Account.save_to_db')
@@ -128,7 +128,7 @@ class TestAccounts(TestCase):
         result = undecorated_get_user_accounts(1)
 
         self.assertEqual(({'errors': [{'message': 'User with such id does not exist.',
-                                       'source': "Field 'userId' in path parameters."}],
+                                       'source': 'Field \'userId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.Account.save_to_db')
@@ -154,7 +154,7 @@ class TestAccounts(TestCase):
         result = undecorated_get_authorized_user_accounts()
 
         self.assertEqual(({'errors': [{'message': 'User with such id does not exist.',
-                                       'source': "Field 'userId' in path parameters."}],
+                                       'source': 'Field \'userId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.Account.save_to_db')
@@ -178,7 +178,7 @@ class TestAccounts(TestCase):
         result = undecorated_update_account_by_id(1)
 
         self.assertEqual(({'errors': [{'message': 'Balance must be positive number.',
-                                       'source': "Field 'balance' in the request body."}],
+                                       'source': 'Field \'balance\' in the request body.'}],
                            'traceId': result[0].get('traceId')}, 400), result)
 
     @mock.patch('src.models.user.Account.get_by_id')
@@ -191,7 +191,7 @@ class TestAccounts(TestCase):
         result = undecorated_update_account_by_id(1)
 
         self.assertEqual(({'errors': [{'message': 'Account with such id does not exist.',
-                                       'source': "Field 'accountId' in path parameters."}],
+                                       'source': 'Field \'accountId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.Account.delete_by_id')
@@ -250,7 +250,7 @@ class TestAccounts(TestCase):
         result = undecorated_delete_account_by_id(1)
 
         self.assertEqual(({'errors': [{'message': 'You do not have account with that id',
-                                       'source': "Field 'accountId' in path parameters"}],
+                                       'source': 'Field \'accountId\' in path parameters'}],
                            'traceId': result[0].get('traceId')}, 400), result)
 
     @mock.patch('src.models.Account.save_to_db')
@@ -288,7 +288,7 @@ class TestAccounts(TestCase):
         result = undecorated_transfer_to_account(1, 2)
 
         self.assertEqual(({'errors': [{'message': 'Balance must be positive number.',
-                                       'source': "Field 'amount' in the request body."}],
+                                       'source': 'Field \'amount\' in the request body.'}],
                            'traceId': result[0].get('traceId')}, 400), result)
 
     @mock.patch('src.models.Account.get_by_id')
@@ -303,7 +303,7 @@ class TestAccounts(TestCase):
         result = undecorated_transfer_to_account(1, 2)
 
         self.assertEqual(({'errors': [{'message': 'Account with such id does not exist.',
-                                       'source': "Field 'accountId' in path parameters."}],
+                                       'source': 'Field \'accountId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.Account.save_to_db')
@@ -355,7 +355,7 @@ class TestAccounts(TestCase):
         result = undecorated_transfer_to_account(1, 2)
 
         self.assertEqual(({'errors': [{'message': 'You do not have access to this account.',
-                                       'source': "Field 'fromAccountId' in path parameters."}],
+                                       'source': 'Field \'fromAccountId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 400), result)
 
     @mock.patch('src.models.Account.save_to_db')
@@ -380,7 +380,7 @@ class TestAccounts(TestCase):
         result = undecorated_transfer_to_account(1, 2)
 
         self.assertEqual(({'errors': [{'message': 'Account with such id does not exist.',
-                                       'source': "Field 'accountId' in path parameters."}],
+                                       'source': 'Field \'accountId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.Account.save_to_db')
@@ -405,5 +405,5 @@ class TestAccounts(TestCase):
         result = undecorated_transfer_to_account(1, 2)
 
         self.assertEqual(({'errors': [{'message': 'Moneyless?',
-                                       'source': "Field 'amount' in the request body."}],
+                                       'source': 'Field \'amount\' in the request body.'}],
                            'traceId': result[0].get('traceId')}, 400), result)

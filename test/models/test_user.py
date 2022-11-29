@@ -1,6 +1,6 @@
 from unittest import TestCase, mock
 
-from src.models import User, Account
+from src.models import User
 
 
 class TestUser(TestCase):
@@ -120,17 +120,5 @@ class TestUser(TestCase):
         result = User.delete_by_identifier('username')
 
         self.assertEqual(({'errors': [{'message': 'User with such id/username does not exist.',
-                                       'source': "Field 'userId/username' in path parameters."}],
+                                       'source': 'Field \'userId/username\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
-
-    @mock.patch('src.app.db.session.commit')
-    @mock.patch('flask_sqlalchemy.model._QueryProperty.__get__')
-    @mock.patch('src.models.user.User.get_by_username_or_id')
-    def test_delete_by_identifier(self, mock_get_by_username_or_id, mock_query_property_getter, mock_commit):
-        mock_get_by_username_or_id.return_value = self.user
-        mock_query_property_getter.return_value.filter_by.return_value.delete.return_value = None
-        mock_commit.return_value = None
-
-        result = User.delete_by_identifier('username')
-
-        self.assertTrue(result)

@@ -57,16 +57,16 @@ class TestUsers(TestCase):
         result = create_user()
 
         self.assertEqual({
-            "accountIds": [],
-            "email": "denshykk@gmail.com",
-            "first_name": "Denys",
-            "id": None,
-            "last_name": "Tykhonov",
-            "password": "password",
-            "roles": [
-                "user"
+            'accountIds': [],
+            'email': 'denshykk@gmail.com',
+            'first_name': 'Denys',
+            'id': None,
+            'last_name': 'Tykhonov',
+            'password': 'password',
+            'roles': [
+                'user'
             ],
-            "username": "denshykk"
+            'username': 'denshykk'
         }, result)
 
     @mock.patch('src.models.user.User.generate_hash')
@@ -80,7 +80,7 @@ class TestUsers(TestCase):
         result = create_user()
 
         self.assertEqual(({'errors': [{'message': 'Please, enter valid email address.',
-                                       'source': "Field 'email' in the request body."}],
+                                       'source': 'Field \'email\' in the request body.'}],
                            'traceId': result[0].get('traceId')}, 400), result)
 
     @mock.patch('src.models.user.User.generate_hash')
@@ -94,7 +94,7 @@ class TestUsers(TestCase):
         result = create_user()
 
         self.assertEqual(({'errors': [{'message': 'Password should consist of at least 8 symbols.',
-                                       'source': "Field 'password' in the request body."}],
+                                       'source': 'Field \'password\' in the request body.'}],
                            'traceId': result[0].get('traceId')}, 400), result)
 
     @mock.patch('src.models.user.User.get_by_username')
@@ -108,7 +108,7 @@ class TestUsers(TestCase):
         result = create_user()
 
         self.assertEqual(({'errors': [{'message': 'User with such username already exists.',
-                                       'source': "Field 'username' in the request body."}],
+                                       'source': 'Field \'username\' in the request body.'}],
                            'traceId': result[0].get('traceId')}, 400), result)
 
     @mock.patch('src.models.user.User.get_by_id')
@@ -128,7 +128,7 @@ class TestUsers(TestCase):
         result = undecorated_get_user_by_id(1)
 
         self.assertEqual(({'errors': [{'message': 'User with such id does not exist.',
-                                       'source': "Field 'userId' in path parameters."}],
+                                       'source': 'Field \'userId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.user.User.get_by_username')
@@ -152,7 +152,7 @@ class TestUsers(TestCase):
         result = undecorated_get_authorized_user()
 
         self.assertEqual(({'errors': [{'message': 'User with such id does not exist.',
-                                       'source': "Field 'userId' in path parameters."}],
+                                       'source': 'Field \'userId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.user.User.save_to_db')
@@ -183,7 +183,7 @@ class TestUsers(TestCase):
         result = undecorated_update_user_by_id(1)
 
         self.assertEqual(({'errors': [{'message': 'User with such username already exists.',
-                                       'source': "Field 'username' in the request body."}],
+                                       'source': 'Field \'username\' in the request body.'}],
                            'traceId': result[0].get('traceId')}, 400), result)
 
     @mock.patch('src.models.user.User.get_by_id')
@@ -198,7 +198,7 @@ class TestUsers(TestCase):
         result = undecorated_update_user_by_id(1)
 
         self.assertEqual(({'errors': [{'message': 'User with such id does not exist.',
-                                       'source': "Field 'userId' in path parameters."}],
+                                       'source': 'Field \'userId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.user.User.save_to_db')
@@ -230,7 +230,7 @@ class TestUsers(TestCase):
         result = undecorated_update_authorized_user()
 
         self.assertEqual(({'errors': [{'message': 'User with such username already exists.',
-                                       'source': "Field 'username' in the request body."}],
+                                       'source': 'Field \'username\' in the request body.'}],
                            'traceId': result[0].get('traceId')}, 400), result)
 
     @mock.patch('flask_httpauth.HTTPAuth.current_user')
@@ -246,7 +246,7 @@ class TestUsers(TestCase):
         result = undecorated_update_authorized_user()
 
         self.assertEqual(({'errors': [{'message': 'User with such id does not exist.',
-                                       'source': "Field 'userId' in path parameters."}],
+                                       'source': 'Field \'userId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
 
     @mock.patch('src.models.user.User.delete_by_identifier')

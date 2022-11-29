@@ -58,6 +58,6 @@ class TestAccount(TestCase):
         result = Account.delete_by_id(1)
 
         self.assertEqual(({'errors': [{'message': 'Account with such id does not exist.',
-                                       'source': "Field 'accountId' in path parameters."}],
+                                       'source': 'Field \'accountId\' in path parameters.'}],
                            'traceId': result[0].get('traceId')}, 404), result)
         mock_get_by_id.assert_called_once_with(1)

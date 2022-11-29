@@ -4,12 +4,16 @@ from src.utils.exception_wrapper import handle_error_format, handle_server_excep
 
 class TestUtils(TestCase):
 
-    def func(self):
-        return {'message': 'blank'}
+    def func_exc(self):
+        raise ValueError('something')
 
-    def test_handle_server_exception(self):
-        result = handle_server_exception(self.func)
-        self.assertNotEqual(result, {})
+    def test_handle_server_exception_with_exc(self):
+        result = handle_server_exception(self.func_exc)()
+        self.assertEqual(result, ({'errors': ["<class 'ValueError'>",
+                                              'something',
+                                              result[0].get('errors')[2]],
+                                   'traceId': result[0].get('traceId')},
+                                  500))
 
     def test_handle_error_format(self):
         result = handle_error_format('message', 'source')
