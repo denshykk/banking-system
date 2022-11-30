@@ -7,7 +7,7 @@ from src.utils.exception_wrapper import handle_error_format
 from src.utils.exception_wrapper import handle_server_exception
 
 
-@app.route('/account/<userId>', methods=['POST'])
+@app.route('/accounts/<userId>', methods=['POST'])
 @auth.login_required(role='admin')
 @handle_server_exception
 def create_account(userId: int):
@@ -27,7 +27,7 @@ def create_account(userId: int):
     return Account.to_json(account)
 
 
-@app.route('/account', methods=['POST'])
+@app.route('/accounts', methods=['POST'])
 @auth.login_required(role=['user', 'admin'])
 @handle_server_exception
 def create_account_for_authorized_user():
@@ -48,7 +48,7 @@ def create_account_for_authorized_user():
     return Account.to_json(account)
 
 
-@app.route('/account/<accountId>', methods=['GET'])
+@app.route('/accounts/<accountId>', methods=['GET'])
 @auth.login_required(role='admin')
 @handle_server_exception
 def get_account_by_id(accountId: int):
@@ -61,7 +61,7 @@ def get_account_by_id(accountId: int):
     return Account.to_json(account)
 
 
-@app.route('/user/account/<userId>', methods=['GET'])
+@app.route('/users/accounts/<userId>', methods=['GET'])
 @auth.login_required(role='admin')
 @handle_server_exception
 def get_user_accounts(userId: int):
@@ -74,7 +74,7 @@ def get_user_accounts(userId: int):
     return [Account.to_json(account) for account in user.accounts]
 
 
-@app.route('/user/account', methods=['GET'])
+@app.route('/users/accounts', methods=['GET'])
 @auth.login_required(role=['user', 'admin'])
 @handle_server_exception
 def get_authorized_user_accounts():
@@ -88,7 +88,7 @@ def get_authorized_user_accounts():
     return [Account.to_json(account) for account in user.accounts]
 
 
-@app.route('/account/<accountId>', methods=['PUT'])
+@app.route('/accounts/<accountId>', methods=['PUT'])
 @auth.login_required(role='admin')
 @handle_server_exception
 def update_account_by_id(accountId: int):
@@ -115,7 +115,7 @@ def update_account_by_id(accountId: int):
     return Account.to_json(account)
 
 
-@app.route('/account/<accountId>', methods=['DELETE'])
+@app.route('/accounts/<accountId>', methods=['DELETE'])
 @auth.login_required(role=['user', 'admin'])
 @handle_server_exception
 def delete_account_by_id(accountId: int):
@@ -134,7 +134,7 @@ def delete_account_by_id(accountId: int):
     return Account.delete_by_id(accountId)
 
 
-@app.route('/account/<fromAccountId>/transfer-to/<toAccountId>', methods=['POST'])
+@app.route('/accounts/<fromAccountId>/transfer-to/<toAccountId>', methods=['POST'])
 @auth.login_required(role=['user', 'admin'])
 @handle_server_exception
 def transfer_to_account(fromAccountId: int, toAccountId: int):
