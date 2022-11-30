@@ -11,7 +11,3 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 auth = HTTPBasicAuth()
-
-# @app.before_first_request
-# def create_tables():
-#     db.create_all()
