@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.scss">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<header>
+    <!-- Add the same header/navigation as in the main menu -->
+</header>
+<main>
+    <section class="admin-dashboard">
+        <div class="delete-user">
+            <h2>Delete User</h2>
+            <form id="delete-user-form">
+                <label for="delete-username">Username:</label>
+                <input type="text" id="delete-username" name="delete-username" required>
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+        <div class="change-balance">
+            <h2>Change User Balance</h2>
+            <form id="change-balance-form">
+                <label for="change-username">Username:</label>
+                <input type="text" id="change-username" name="change-username" required>
+                <label for="new-balance">New Balance:</label>
+                <input type="number" id="new-balance" name="new-balance" step="0.01" required>
+                <button type="submit">Change Balance</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

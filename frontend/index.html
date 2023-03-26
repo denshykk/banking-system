@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Banking System</title>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="#" class="logo">Banking System</a>
+        <label for="mobile-menu-checkbox" class="mobile-menu-icon">&#9776;</label>
+        <input type="checkbox" id="mobile-menu-checkbox" class="mobile-menu-checkbox">
+        <ul class="menu main-menu">
+            <li><a href="#">About Company</a></li>
+            <li><a href="#login-popup" class="popup-link">Login</a></li>
+            <li><a href="#signup-popup" class="popup-link">Signup</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Login Popup -->
+<input type="checkbox" id="login-checkbox" class="popup-checkbox">
+<label for="login-checkbox" class="popup-label"></label>
+<div class="popup" id="login-popup">
+  <div class="popup-content">
+    <span class="close-icon">&times;</span>
+    <h2>Login</h2>
+    <form>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+
+<!-- Signup Popup -->
+<input type="checkbox" id="signup-checkbox" class="popup-checkbox">
+<label for="signup-checkbox" class="popup-label"></label>
+<div class="popup" id="signup-popup">
+  <div class="popup-content">
+    <span class="close-icon">&times;</span>
+    <h2>Signup</h2>
+    <form>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
+      <button type="submit">Signup</button>
+    </form>
+  </div>
+</div>
+
+<main>
+    <section class="hero">
+        <h1>Welcome to Banking System</h1>
+        <p>Secure, fast, and reliable banking solutions for everyone.</p>
+    </section>
+    <section class="about">
+        <h2>About Our Company</h2>
+        <p>Banking System is a leading financial services provider with a commitment to offering secure, innovative, and
+            customer-focused banking solutions. With our state-of-the-art technology and a team of experienced
+            professionals, we strive to deliver the best possible services to our clients.</p>
+    </section>
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="service">
+            <h3>Personal Banking</h3>
+            <p>From checking and savings accounts to personal loans, our personal banking services are designed to meet
+                your everyday financial needs.</p>
+        </div>
+        <div class="service">
+            <h3>Business Banking</h3>
+            <p>Our business banking solutions include corporate accounts, cash management services, and tailored
+                financing solutions to help your business grow.</p>
+        </div>
+        <div class="service">
+            <h3>Digital Banking</h3>
+            <p>Access your accounts and manage your finances anytime, anywhere with our secure and user-friendly online
+                and mobile banking platforms.</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2023 Banking System. All rights reserved.</p>
+</footer>
+</body>
+</html>
