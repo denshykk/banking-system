@@ -5,7 +5,7 @@ from src.utils.exception_wrapper import handle_error_format
 from src.utils.exception_wrapper import handle_server_exception
 
 
-@app.route('/user/create', methods=['POST'])
+@app.route('/users', methods=['POST'])
 @handle_server_exception
 def create_user():
     parser = reqparse.RequestParser()
@@ -51,7 +51,7 @@ def create_user():
     return User.to_json(user)
 
 
-@app.route('/user/<userId>', methods=['GET'])
+@app.route('/users/<userId>', methods=['GET'])
 @auth.login_required(role='admin')
 @handle_server_exception
 def get_user_by_id(userId: int):
@@ -62,7 +62,7 @@ def get_user_by_id(userId: int):
     return User.to_json(user)
 
 
-@app.route('/user', methods=['GET'])
+@app.route('/users', methods=['GET'])
 @auth.login_required(role=['user', 'admin'])
 @handle_server_exception
 def get_authorized_user():
@@ -75,7 +75,7 @@ def get_authorized_user():
     return User.to_json(user)
 
 
-@app.route('/user/<userId>', methods=['PUT'])
+@app.route('/users/<userId>', methods=['PUT'])
 @auth.login_required(role='admin')
 @handle_server_exception
 def update_user_by_id(userId: int):
@@ -108,7 +108,7 @@ def update_user_by_id(userId: int):
     return User.to_json(user)
 
 
-@app.route('/user', methods=['PUT'])
+@app.route('/users', methods=['PUT'])
 @auth.login_required(role=['user', 'admin'])
 @handle_server_exception
 def update_authorized_user():
@@ -142,14 +142,14 @@ def update_authorized_user():
     return User.to_json(user)
 
 
-@app.route('/user/<userId>', methods=['DELETE'])
+@app.route('/users/<userId>', methods=['DELETE'])
 @auth.login_required(role='admin')
 @handle_server_exception
 def delete_user_by_id(userId: int):
     return User.delete_by_identifier(userId)
 
 
-@app.route('/user', methods=['DELETE'])
+@app.route('/users', methods=['DELETE'])
 @auth.login_required(role=['user', 'admin'])
 @handle_server_exception
 def delete_authorized_user():
