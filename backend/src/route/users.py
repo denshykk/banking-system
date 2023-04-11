@@ -51,11 +51,21 @@ def create_user():
     return User.to_json(user)
 
 
+@app.route('/users/login', methods=['POST'])
+@auth.login_required(role=['user', 'admin'])
+@handle_server_exception
+def login():
+    username = auth.current_user()
+    user = User.get_by_username_or_email(username)
+
+    return User.to_json(user)
+
+
 @app.route('/users/<userId>', methods=['GET'])
 @auth.login_required(role='admin')
 @handle_server_exception
-def get_user_by_id(userId: int):
-    user = User.get_by_id(userId)
+def get_user_by_id(user_id: int):
+    user = User.get_by_id(user_id)
     if not user:
         return handle_error_format('User with such id does not exist.',
                                    'Field \'userId\' in path parameters.'), 404
@@ -78,7 +88,7 @@ def get_authorized_user():
 @app.route('/users/<userId>', methods=['PUT'])
 @auth.login_required(role='admin')
 @handle_server_exception
-def update_user_by_id(userId: int):
+def update_user_by_id(user_id: int):
     parser = reqparse.RequestParser()
 
     parser.add_argument('username', help='username cannot be blank')
@@ -94,7 +104,7 @@ def update_user_by_id(userId: int):
         return handle_error_format('User with such username already exists.',
                                    'Field \'username\' in the request body.'), 400
 
-    user = User.get_by_id(userId)
+    user = User.get_by_id(user_id)
 
     if not user:
         return handle_error_format('User with such id does not exist.',
@@ -145,8 +155,8 @@ def update_authorized_user():
 @app.route('/users/<userId>', methods=['DELETE'])
 @auth.login_required(role='admin')
 @handle_server_exception
-def delete_user_by_id(userId: int):
-    return User.delete_by_identifier(userId)
+def delete_user_by_id(user_id: int):
+    return User.delete_by_identifier(user_id)
 
 
 @app.route('/users', methods=['DELETE'])

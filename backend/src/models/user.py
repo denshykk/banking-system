@@ -22,7 +22,6 @@ class User(db.Model):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.email,
-            'password': self.password,
             'accountIds': [account.id for account in self.accounts],
             'roles': [role.name for role in self.roles],
         }
