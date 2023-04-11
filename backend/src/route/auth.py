@@ -29,7 +29,7 @@ class AdminModelView(sqla.ModelView):
         auth_header = request.authorization
 
         if auth_header:
-            user = User.get_by_username(auth_header.username)
+            user = User.get_by_username_or_email(auth_header.username)
             admin = Role.get_by_name('admin')
             if User.verify_hash(auth_header.password, user.password) and admin in user.roles:
                 return True
