@@ -31,7 +31,7 @@ def create_user():
         return handle_error_format('Password should consist of at least 8 symbols.',
                                    'Field \'password\' in the request body.'), 400
 
-    if User.get_by_username(username):
+    if User.get_by_username_or_email(username):
         return handle_error_format('User with such username already exists.',
                                    'Field \'username\' in the request body.'), 400
 
@@ -77,7 +77,7 @@ def get_user_by_id(user_id: int):
 @handle_server_exception
 def get_authorized_user():
     username = auth.current_user()
-    user = User.get_by_username(username)
+    user = User.get_by_username_or_email(username)
 
     if not user:
         return handle_error_format('User with such id does not exist.',
@@ -100,7 +100,7 @@ def update_user_by_id(user_id: int):
     first_name = data['firstName']
     last_name = data['lastName']
 
-    if User.get_by_username(username):
+    if User.get_by_username_or_email(username):
         return handle_error_format('User with such username already exists.',
                                    'Field \'username\' in the request body.'), 400
 
@@ -133,12 +133,12 @@ def update_authorized_user():
     first_name = data['firstName']
     last_name = data['lastName']
 
-    if User.get_by_username(username):
+    if User.get_by_username_or_email(username):
         return handle_error_format('User with such username already exists.',
                                    'Field \'username\' in the request body.'), 400
 
     current_username = auth.current_user()
-    user = User.get_by_username(current_username)
+    user = User.get_by_username_or_email(current_username)
 
     if not user:
         return handle_error_format('User with such id does not exist.',
