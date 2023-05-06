@@ -1,5 +1,12 @@
 $primary-color: #007bff;
 
+body {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 header {
   background-color: #fff;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
@@ -42,6 +49,8 @@ header {
 main {
   padding-top: 100px;
   padding-bottom: 50px;
+  margin: 0 auto;
+  flex: 1;
 
   .card {
     border: none;
@@ -91,6 +100,10 @@ footer {
   background-color: #222;
   color: #fff;
   padding: 50px 0;
+  margin-top: auto;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 
   h3 {
     font-weight: bold;
@@ -132,4 +145,97 @@ footer {
   p {
     font-size: 16px;
   }
+
+}
+
+.container#notFound {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+  align-items: center;
+  height: 100vh;
+}
+
+.accountList {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+  margin-bottom: 15rem;
+
+  .container {
+    margin-top: 10rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  button#createAccount {
+    width: 80%;
+    margin: 7rem auto;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  button#createAccount:hover {
+    background-color: #0069d9;
+  }
+
+  button#deleteButton {
+    background-color: #d90000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  button#deleteButton:hover {
+    background-color: #d90000;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: auto;
+    width: 80%;
+  }
+
+  th,
+  td {
+    text-align: center;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #999;
+    text-align: center;
+    margin-top: 20px;
+  }
+
 }
