@@ -52,6 +52,7 @@ function LoginForm() {
 
             if (response.status === 200) {
                 localStorage.setItem('authData', authData);
+                localStorage.setItem('user', JSON.stringify(data));
                 setAuthExpiration(5);
                 const loginModal = document.getElementById('loginModal');
                 loginModal.classList.remove('show');

@@ -8,19 +8,25 @@ import Account from "./Account";
 function Header() {
     const history = useHistory();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         const authData = localStorage.getItem('authData');
         const authExpiration = localStorage.getItem('authExpiration');
+        const user = localStorage.getItem('user');
 
         if (authData && authExpiration) {
             const expirationDate = new Date(authExpiration);
 
             if (new Date() < expirationDate) {
                 setIsLoggedIn(true);
+                if (user.includes('admin')) {
+                    setIsAdmin(true);
+                }
             } else {
                 localStorage.removeItem('authData');
                 localStorage.removeItem('authExpiration');
+                localStorage.removeItem('user');
             }
         }
     }, []);
@@ -28,8 +34,14 @@ function Header() {
     const handleLogout = () => {
         localStorage.removeItem('authData');
         localStorage.removeItem('authExpiration');
+        localStorage.removeItem('user');
         history.push("/");
         window.location.reload();
+    };
+
+    const handleAdminPanel = () => {
+        let s = "Basic " + encodeURIComponent(localStorage.getItem("authData"));
+        window.location.href = "http://localhost:8090/admin?authorization=" + s
     };
 
     return (
@@ -46,6 +58,14 @@ function Header() {
                         <ul className="navbar-nav ml-auto">
                             {isLoggedIn ? (
                                     <>
+                                        <>
+                                            {isAdmin ? (
+                                                <li className="nav-item">
+                                                    <Link className="nav-link" href="#" id="admin-btn"
+                                                          onClick={handleAdminPanel}>Admin Panel</Link>
+                                                </li>
+                                            ) : null}
+                                        </>
                                         <li className="nav-item">
                                             <Link to="/accounts" className="nav-link" href="#" id="admin-btn"
                                                   click={<Account/>}>Accounts</Link>

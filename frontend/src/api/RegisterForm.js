@@ -83,6 +83,7 @@ function RegisterForm() {
 
             if (response.status === 200 || response.status === 201) {
                 localStorage.setItem('authData', btoa(`${email}:${password}`));
+                localStorage.setItem('user', JSON.stringify(data));
                 setAuthExpiration(5);
                 const registerModal = document.getElementById('registerModal');
                 registerModal.classList.remove('show');
