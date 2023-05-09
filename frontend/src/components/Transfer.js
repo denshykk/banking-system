@@ -77,7 +77,7 @@ function Transfer() {
     }
 
     return (
-        <div className="container">
+        <div className="container" id="transfer">
             <h1>Transfer Money</h1>
             <hr/>
             <div className="row">

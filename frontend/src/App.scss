@@ -148,12 +148,68 @@ footer {
 
 }
 
+@media (max-width: 768px) {
+  /* adjust padding and font sizes for smaller screens */
+  footer {
+    padding: 30px 0;
+
+    h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    ul li {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .social-icons li {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    margin-top: 50px;
+    padding: 20px 0;
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    ul li {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .social-icons li {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
 .container#notFound {
   display: flex;
   flex-direction: column;
   margin-top: 10rem;
   align-items: center;
   height: 100vh;
+}
+
+@media only screen and (max-height: 768px) {
+  div#transfer {
+    margin-bottom: 32rem;
+  }
 }
 
 .accountList {
@@ -177,7 +233,7 @@ footer {
 
   button#createAccount {
     width: 80%;
-    margin: 7rem auto;
+    margin: 7rem auto 17rem;
     background-color: #007bff;
     color: white;
     border: none;
@@ -189,6 +245,25 @@ footer {
 
   button#createAccount:hover {
     background-color: #0069d9;
+  }
+
+  @media only screen and (max-width: 768px) {
+    button#createAccount {
+      width: 100%;
+      margin-bottom: 17rem;
+    }
+  }
+
+  @media only screen and (max-width: 414px) {
+    button#createAccount {
+      margin-bottom: 17rem;
+    }
+  }
+
+  @media only screen and (min-width: 414px) {
+    button#createAccount {
+      margin-bottom: 20rem;
+    }
   }
 
   button#deleteButton {
