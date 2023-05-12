@@ -1,0 +1,316 @@
+$primary-color: #007bff;
+
+body {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .nav-item {
+    margin-left: 20px;
+
+    .nav-link {
+      color: #555;
+      font-size: 18px;
+      font-weight: 600;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .btn-primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      border-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+main {
+  padding-top: 100px;
+  padding-bottom: 50px;
+  margin: 0 auto;
+  flex: 1;
+
+  .card {
+    border: none;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .card-text {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: $primary-color;
+      border-color: $primary-color;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+        border-color: darken($primary-color, 10%);
+      }
+    }
+  }
+
+  h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 40px;
+  }
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 50px 0;
+  margin-top: auto;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  h3 {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    margin-bottom: 20px;
+
+    li {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .social-icons {
+    font-size: 24px;
+
+    li {
+      display: inline-block;
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      a {
+        color: #fff;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  /* adjust padding and font sizes for smaller screens */
+  footer {
+    padding: 30px 0;
+
+    h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    ul li {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .social-icons li {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    margin-top: 50px;
+    padding: 20px 0;
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    ul li {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .social-icons li {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+.container#notFound {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+  align-items: center;
+  height: 100vh;
+}
+
+@media only screen and (max-height: 768px) {
+  div#transfer {
+    margin-bottom: 32rem;
+  }
+}
+
+.accountList {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+  margin-bottom: 15rem;
+
+  .container {
+    margin-top: 10rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  button#createAccount {
+    width: 80%;
+    margin: 7rem auto 17rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  button#createAccount:hover {
+    background-color: #0069d9;
+  }
+
+  @media only screen and (max-width: 768px) {
+    button#createAccount {
+      width: 100%;
+      margin-bottom: 17rem;
+    }
+  }
+
+  @media only screen and (max-width: 414px) {
+    button#createAccount {
+      margin-bottom: 17rem;
+    }
+  }
+
+  @media only screen and (min-width: 414px) {
+    button#createAccount {
+      margin-bottom: 20rem;
+    }
+  }
+
+  button#deleteButton {
+    background-color: #d90000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  button#deleteButton:hover {
+    background-color: #d90000;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: auto;
+    width: 80%;
+  }
+
+  th,
+  td {
+    text-align: center;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #999;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+}

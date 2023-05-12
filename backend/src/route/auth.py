@@ -1,5 +1,7 @@
+import base64
+
 from flask_admin.contrib import sqla
-from flask import request
+from flask import request, session, abort
 
 from src.app import auth, admin, db
 from src.models import User, Account, Role
@@ -26,12 +28,27 @@ def get_user_roles(user):
 class AdminModelView(sqla.ModelView):
 
     def is_accessible(self):
-        auth_header = request.authorization
+        if (not "authData" in session and not request.args.get('authorization')):
+            abort(404)
+
+        if ("authData" in session):
+            username = base64.b64decode(session["authData"]).__str__().split("\'")[1].split(":")[0]
+            password = base64.b64decode(session["authData"]).__str__().split("\'")[1].split(":")[1]
+
+            user = User.get_by_username_or_email(username)
+            admin = Role.get_by_name('admin')
+            if User.verify_hash(password, user.password) and admin in user.roles:
+                return True
+
+        auth_header = request.args.get('authorization').split(" ")[1]
+        username = base64.b64decode(auth_header).__str__().split("\'")[1].split(":")[0]
+        password = base64.b64decode(auth_header).__str__().split("\'")[1].split(":")[1]
 
         if auth_header:
-            user = User.get_by_username_or_email(auth_header.username)
+            user = User.get_by_username_or_email(username)
             admin = Role.get_by_name('admin')
-            if User.verify_hash(auth_header.password, user.password) and admin in user.roles:
+            if User.verify_hash(password, user.password) and admin in user.roles:
+                session["authData"] = request.args.get('authorization').split(" ")[1]
                 return True
 
         return False
