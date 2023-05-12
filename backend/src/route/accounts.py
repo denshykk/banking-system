@@ -32,7 +32,7 @@ def create_account(userId: int):
 @handle_server_exception
 def create_account_for_authorized_user():
     username = auth.current_user()
-    user = User.get_by_username(username)
+    user = User.get_by_username_or_email(username)
 
     if not user:
         return handle_error_format('User with such id does not exist.',
@@ -79,7 +79,7 @@ def get_user_accounts(userId: int):
 @handle_server_exception
 def get_authorized_user_accounts():
     username = auth.current_user()
-    user = User.get_by_username(username)
+    user = User.get_by_username_or_email(username)
 
     if not user:
         return handle_error_format('User with such id does not exist.',
@@ -120,7 +120,7 @@ def update_account_by_id(accountId: int):
 @handle_server_exception
 def delete_account_by_id(accountId: int):
     username = auth.current_user()
-    user = User.get_by_username(username)
+    user = User.get_by_username_or_email(username)
 
     admin = Role.get_by_name('admin')
     if admin in user.roles:
@@ -146,7 +146,7 @@ def transfer_to_account(fromAccountId: int, toAccountId: int):
     amount = data['amount']
 
     if amount <= 0:
-        return handle_error_format('Balance must be positive number.',
+        return handle_error_format('Amount must be positive number.',
                                    'Field \'amount\' in the request body.'), 400
 
     from_account = Account.get_by_id(fromAccountId)
@@ -156,7 +156,7 @@ def transfer_to_account(fromAccountId: int, toAccountId: int):
                                    'Field \'accountId\' in path parameters.'), 404
 
     username = auth.current_user()
-    user = User.get_by_username(username)
+    user = User.get_by_username_or_email(username)
     admin = Role.get_by_name('admin')
 
     if from_account not in user.accounts:
