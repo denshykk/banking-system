@@ -52,7 +52,7 @@ function Transfer() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch(`http://localhost:8090/accounts/${fromAcc}/transfer-to/${toAcc}`, {
+        const response = await fetch(require('./../../package.json').config.BACKEND_URL + `/accounts/${fromAcc}/transfer-to/${toAcc}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -37,7 +37,7 @@ function LoginForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const loginUrl = 'http://localhost:8090/users/login';
+        const loginUrl = require('./../../package.json').config.BACKEND_URL + '/users/login';
         const authData = btoa(`${email}:${password}`);
         const headers = {
             'Authorization': `Basic ${authData}`,

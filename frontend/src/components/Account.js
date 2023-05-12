@@ -7,7 +7,7 @@ const Account = () => {
 
     const createAccount = async () => {
         try {
-            await axios.post('http://localhost:8090/accounts', null, {
+            await axios.post(require('./../../package.json').config.BACKEND_URL + '/accounts', null, {
                 headers: {
                     Authorization: `Basic ${localStorage.getItem('authData')}`,
                 },
@@ -19,7 +19,7 @@ const Account = () => {
 
     const deleteAccount = async (accountId) => {
         try {
-            await axios.delete(`http://localhost:8090/accounts/${accountId}`, {
+            await axios.delete(require('./../../package.json').config.BACKEND_URL + `/accounts/${accountId}`, {
                 headers: {
                     Authorization: `Basic ${localStorage.getItem('authData')}`,
                 },
@@ -32,7 +32,7 @@ const Account = () => {
     const getAccounts = async () => {
         const token = localStorage.getItem('authData');
         try {
-            const response = await axios.get('http://localhost:8090/users/accounts', {
+            const response = await axios.get(require('./../../package.json').config.BACKEND_URL + '/users/accounts', {
                 headers: {
                     Authorization: `Basic ${token}`,
                 },

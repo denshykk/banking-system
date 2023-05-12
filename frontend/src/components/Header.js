@@ -41,7 +41,7 @@ function Header() {
 
     const handleAdminPanel = () => {
         let s = "Basic " + encodeURIComponent(localStorage.getItem("authData"));
-        window.location.href = "http://localhost:8090/admin?authorization=" + s
+        window.location.href = require('./../../package.json').config.BACKEND_URL + "/admin?authorization=" + s
     };
 
     return (
