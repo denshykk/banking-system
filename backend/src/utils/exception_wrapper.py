@@ -8,9 +8,9 @@ def handle_server_exception(func):
             return func(*args, **kwargs)
         except BaseException as e:
             return {
-                       'traceId': str(uuid.uuid1()),
-                       'errors': [str(error) for error in stack_trace()]
-                   }, 500
+                'traceId': str(uuid.uuid1()),
+                'errors': [str(error) for error in stack_trace()]
+            }, 500
 
     wrapper.__name__ = func.__name__
     return wrapper

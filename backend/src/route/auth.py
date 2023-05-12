@@ -54,5 +54,21 @@ class AdminModelView(sqla.ModelView):
         return False
 
 
-admin.add_view(AdminModelView(User, db.session))
-admin.add_view(AdminModelView(Account, db.session))
+class UserModelView(AdminModelView):
+    column_list = ('id', 'username', 'first_name', 'last_name', 'email', 'roles', 'accounts', 'overall_balance')
+    column_searchable_list = ('id', 'username', 'first_name', 'last_name', 'email')
+
+    column_formatters = {
+        'roles': lambda v, c, m, p: [role.name for role in m.roles],
+        'accounts': lambda v, c, m, p: [account.id for account in m.accounts],
+        'overall_balance': lambda v, c, m, p: sum([account.balance for account in m.accounts])
+    }
+
+
+class AccountModelView(AdminModelView):
+    column_list = ('id', 'balance', 'userId', 'user.username')
+    column_searchable_list = ('id', 'balance', 'userId')
+
+
+admin.add_view(UserModelView(User, db.session))
+admin.add_view(AccountModelView(Account, db.session))

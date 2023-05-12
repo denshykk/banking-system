@@ -13,7 +13,7 @@ load_dotenv()
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = getenv('SQLALCHEMY_DATABASE_URI')
-app.config['SECRET_KEY'] = 'agjghdaskhglkjsadhgkjsavjksgiuhwkrbv'
+app.config['SECRET_KEY'] = getenv('FLASK_SECRET')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 cors = CORS(app, methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
