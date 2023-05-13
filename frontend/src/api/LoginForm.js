@@ -12,6 +12,8 @@ function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
+    const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
 
     const FailedLoginPopup = ({show, handleClose, errorMessage}) => {
         return (
@@ -30,6 +32,26 @@ function LoginForm() {
                 </Modal.Footer>
             </Modal>
         );
+    };
+
+    const handleForgotPassword = () => {
+        setShowForgotPassword(true);
+    };
+
+    const handleForgotPasswordSubmit = (event) => {
+        event.preventDefault();
+        axios
+            .post(require('./../../package.json').config.BACKEND_URL + '/forgot-password', {email: forgotPasswordEmail}, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            })
+            .then((response) => {
+                alert('Check your inbox!')
+            })
+            .catch((error) => {
+                alert('Something went wrong! Check your input!')
+            });
     };
 
     const handleCloseError = () => setErrorMessage('');
@@ -69,6 +91,11 @@ function LoginForm() {
         }
     };
 
+    const handleBackToLogin = () => {
+        setShowForgotPassword(false);
+    };
+
+
     return (
         <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel"
              aria-hidden="true">
@@ -81,30 +108,59 @@ function LoginForm() {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-group">
-                                <label htmlFor="loginEmail">Email address</label>
-                                <input type="email" className="form-control" id="loginEmail"
-                                       aria-describedby="emailHelp"
-                                       placeholder="Enter email"
-                                       value={email}
-                                       onChange={(event) => setEmail(event.target.value)}
-                                />
-                                <small id="emailHelp" className="form-text text-muted">We'll never share your
-                                    email with anyone else.</small>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="loginPassword">Password</label>
-                                <input type="password" className="form-control" id="loginPassword"
-                                       placeholder="Password"
-                                       value={password}
-                                       onChange={(event) => setPassword(event.target.value)}
-                                />
-                            </div>
-                            <button type="submit" className="btn btn-primary">Submit</button>
-                        </form>
-                        <FailedLoginPopup show={errorMessage !== ''} handleClose={handleCloseError}
-                                          errorMessage={errorMessage}/>
+                        {!showForgotPassword ? (
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-group">
+                                    <label htmlFor="loginEmail">Email address</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        id="loginEmail"
+                                        aria-describedby="emailHelp"
+                                        placeholder="Enter email"
+                                        value={email}
+                                        onChange={(event) => setEmail(event.target.value)}
+                                    />
+                                    <small id="emailHelp" className="form-text text-muted">We'll never share your email
+                                        with anyone else.</small>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="loginPassword">Password</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="loginPassword"
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={(event) => setPassword(event.target.value)}
+                                    />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Submit</button>
+                                <button type="button" className="btn btn-link" onClick={handleForgotPassword}>Forgot
+                                    Password?
+                                </button>
+                                <FailedLoginPopup show={errorMessage !== ''} handleClose={handleCloseError}
+                                                  errorMessage={errorMessage}/>
+                            </form>
+                        ) : (
+                            <form onSubmit={handleForgotPasswordSubmit}>
+                                <div className="form-group">
+                                    <label htmlFor="forgotPasswordEmail">Email address</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        id="forgotPasswordEmail"
+                                        placeholder="Enter email"
+                                        value={forgotPasswordEmail}
+                                        onChange={(event) => setForgotPasswordEmail(event.target.value)}
+                                    />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Submit</button>
+                                <button type="button" className="btn btn-link"
+                                        onClick={handleBackToLogin}>Back to Login
+                                </button>
+                            </form>
+                        )}
                     </div>
                 </div>
             </div>
