@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Transfer from "./components/Transfer";
 import NoPage from "./components/NoPage";
 import Account from "./components/Account";
+import ProfilePage from "./components/Profile";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route exact path="/" component={Main}/>
                 <Route path="/transfer" component={Transfer}/>
                 <Route path="/accounts" component={Account}/>
+                <Route path="/profile" component={ProfilePage}/>
                 <Route path="*" component={NoPage}/>
             </Switch>
             <Footer/>
