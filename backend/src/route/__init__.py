@@ -17,3 +17,6 @@ from src.route.users import delete_authorized_user
 
 from src.route.auth import verify_password
 from src.route.auth import get_user_roles
+
+from src.route.password_mgmt import forgot_password
+from src.route.password_mgmt import reset_password

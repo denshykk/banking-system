@@ -79,7 +79,7 @@ function RegisterForm() {
         };
 
         try {
-            const response = await axios.post('http://localhost:8090/users', data, {headers});
+            const response = await axios.post(require('./../../package.json').config.BACKEND_URL + '/users', data, {headers});
 
             if (response.status === 200 || response.status === 201) {
                 localStorage.setItem('authData', btoa(`${email}:${password}`));

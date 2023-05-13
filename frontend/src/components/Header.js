@@ -4,6 +4,7 @@ import "./../App.scss";
 import Transfer from "./Transfer";
 import {Link, useHistory} from "react-router-dom";
 import Account from "./Account";
+import ProfilePage from "./Profile";
 
 function Header() {
     const history = useHistory();
@@ -41,7 +42,7 @@ function Header() {
 
     const handleAdminPanel = () => {
         let s = "Basic " + encodeURIComponent(localStorage.getItem("authData"));
-        window.location.href = "http://localhost:8090/admin?authorization=" + s
+        window.location.href = require('./../../package.json').config.BACKEND_URL + "/admin?authorization=" + s
     };
 
     return (
@@ -73,6 +74,10 @@ function Header() {
                                         <li className="nav-item">
                                             <Link to="/transfer" className="nav-link" href="#" id="admin-btn"
                                                   click={<Transfer/>}>Transfer</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to="/profile" className="nav-link"
+                                                  click={<ProfilePage/>}>Profile</Link>
                                         </li>
                                         <li className="nav-item">
                                             <Link to="/" className="nav-link" href="#" id="logout-btn"
