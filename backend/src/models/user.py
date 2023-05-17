@@ -1,5 +1,4 @@
 from src.app import db
-from src.models import Account
 from passlib.hash import pbkdf2_sha256 as sha256
 from src.utils.exception_wrapper import handle_error_format
 
@@ -22,7 +21,6 @@ class User(db.Model):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.email,
-            'password': self.password,
             'accountIds': [account.id for account in self.accounts],
             'roles': [role.name for role in self.roles],
         }
