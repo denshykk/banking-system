@@ -93,10 +93,10 @@ function RegisterForm() {
                 document.body.classList.remove('modal-open');
                 setIsRegisterSuccessful(true);
             } else {
-                setErrorMessage(response.data.errors[0].message)
+                setErrorMessage(response?.data?.errors[0]?.message || "An error occurred while trying to register.")
             }
         } catch (error) {
-            setErrorMessage(`${error.response.data.errors[0].message}`);
+            setErrorMessage(`${error?.response?.data?.errors[0]?.message}` || "An error occurred while trying to register.");
         }
     };
 

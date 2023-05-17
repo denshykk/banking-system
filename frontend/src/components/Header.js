@@ -1,7 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import "./../App.scss";
-import Transfer from "./Transfer";
 import {Link, useHistory} from "react-router-dom";
 import Account from "./Account";
 import ProfilePage from "./Profile";

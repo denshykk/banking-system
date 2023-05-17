@@ -2,7 +2,6 @@ import React from 'react';
 import "./../App.scss";
 import LoginForm from "../api/LoginForm";
 import RegisterForm from "../api/RegisterForm";
-import Map from "./Map";
 
 function Main() {
     return (
@@ -73,8 +72,6 @@ function Main() {
 
             <RegisterForm/>
             <LoginForm/>
-
-            <Map/>
         </main>
     );
 }
